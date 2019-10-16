@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_ipaddress.rocks.main" default="compile.module.ipaddress.rocks.main">
+  <dirname property="module.ipaddress.rocks.main.basedir" file="${ant.file.module_ipaddress.rocks.main}"/>
+  
+  <property name="module.jdk.home.ipaddress.rocks.main" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.ipaddress.rocks.main" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.ipaddress.rocks.main" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.ipaddress.rocks.main" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="ipaddress.rocks.main.output.dir" value="${module.ipaddress.rocks.main.basedir}/../../build/classes/java/main"/>
+  <property name="ipaddress.rocks.main.testoutput.dir" value="${module.ipaddress.rocks.main.basedir}/../../build/classes/java/main"/>
+  
+  <path id="ipaddress.rocks.main.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="ipaddress.rocks.main.module.production.classpath">
+    <path refid="${module.jdk.classpath.ipaddress.rocks.main}"/>
+    <path refid="library.gradle:_javax.servlet:javax.servlet-api:3.1.0.classpath"/>
+    <path refid="library.gradle:_javax.websocket:javax.websocket-api:1.0.classpath"/>
+  </path>
+  
+  <path id="ipaddress.rocks.main.runtime.production.module.classpath">
+    <pathelement location="${ipaddress.rocks.main.output.dir}"/>
+  </path>
+  
+  <path id="ipaddress.rocks.main.module.classpath">
+    <path refid="${module.jdk.classpath.ipaddress.rocks.main}"/>
+    <pathelement location="${ipaddress.rocks.main.output.dir}"/>
+    <path refid="library.gradle:_javax.servlet:javax.servlet-api:3.1.0.classpath"/>
+    <path refid="library.gradle:_javax.websocket:javax.websocket-api:1.0.classpath"/>
+  </path>
+  
+  <path id="ipaddress.rocks.main.runtime.module.classpath">
+    <pathelement location="${ipaddress.rocks.main.output.dir}"/>
+    <path refid="library.gradle:_javax.servlet:javax.servlet-api:3.1.0.classpath"/>
+    <path refid="library.gradle:_javax.websocket:javax.websocket-api:1.0.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.ipaddress.rocks.main">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.ipaddress.rocks.main">
+    <patternset refid="excluded.from.module.ipaddress.rocks.main"/>
+  </patternset>
+  
+  <path id="ipaddress.rocks.main.module.sourcepath">
+    <dirset dir="${module.ipaddress.rocks.main.basedir}/../../src/main">
+      <include name="java"/>
+      <include name="resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.ipaddress.rocks.main" depends="compile.module.ipaddress.rocks.main.production,compile.module.ipaddress.rocks.main.tests" description="Compile module ipaddress.rocks.main"/>
+  
+  <target name="compile.module.ipaddress.rocks.main.production" depends="register.custom.compilers" description="Compile module ipaddress.rocks.main; production classes">
+    <mkdir dir="${ipaddress.rocks.main.output.dir}"/>
+    <javac2 destdir="${ipaddress.rocks.main.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.ipaddress.rocks.main}/javac">
+      <compilerarg line="${compiler.args.ipaddress.rocks.main}"/>
+      <bootclasspath refid="ipaddress.rocks.main.module.bootclasspath"/>
+      <classpath refid="ipaddress.rocks.main.module.production.classpath"/>
+      <src refid="ipaddress.rocks.main.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.ipaddress.rocks.main"/>
+    </javac2>
+    
+    <copy todir="${ipaddress.rocks.main.output.dir}">
+      <fileset dir="${module.ipaddress.rocks.main.basedir}/../../src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.ipaddress.rocks.main.basedir}/../../src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.ipaddress.rocks.main.tests" depends="register.custom.compilers,compile.module.ipaddress.rocks.main.production" description="compile module ipaddress.rocks.main; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.ipaddress.rocks.main" description="cleanup module">
+    <delete dir="${ipaddress.rocks.main.output.dir}"/>
+    <delete dir="${ipaddress.rocks.main.testoutput.dir}"/>
+  </target>
+</project>
