@@ -36,6 +36,9 @@ public class IpAddressServlet extends HttpServlet {
         pw.write("<html lang='en'>\n<head>\n<title>");
         pw.write(ipAddress);
         pw.write("</title>\n");
+        pw.write("<meta name=\"Description\" content=\"Your IP address\">\n");
+        pw.write("<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF8\">\n");
+        pw.write("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n");
         pw.write("<style>\nh1\n{\nposition:absolute;\nmargin:0;\ntop:0;\nleft:0;\nfont-size:10vw;\nfont-family:Arial;\n}\n</style>\n");
         pw.write("</head>\n<body>\n<h1>");
         pw.write(ipAddress);
