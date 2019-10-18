@@ -12,7 +12,7 @@ public class IpAddressServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter pw = response.getWriter();
-        if (request.getHeader("accept").contains("text/html")) {
+        if (request.getHeader("accept") != null && request.getHeader("accept").contains("text/html")) {
             html(request, response);
         } else {
             plain(request, response);
